@@ -1,8 +1,13 @@
 import { useState } from 'react'
-import { Mail, MapPin, Github, Send, Heart, Wrench, BookOpen } from 'lucide-react'
+import { Mail, MapPin, Github, Send, Heart, Wrench, BookOpen, CheckCircle } from 'lucide-react'
+import { motion } from 'framer-motion'
 import PageTransition from '../components/PageTransition'
 import SectionHeader from '../components/SectionHeader'
 import RevealOnScroll from '../components/RevealOnScroll'
+import AmbientFloaters from '../components/AmbientFloaters'
+import TiltCard from '../components/TiltCard'
+import MagneticButton from '../components/MagneticButton'
+import RisingParticles from '../components/RisingParticles'
 
 const ways = [
   {
@@ -27,7 +32,7 @@ const ways = [
   },
 ]
 
-export default function GetInvolved() {
+export default function GetInvolved({ onSelectTab }) {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
 
@@ -49,15 +54,18 @@ export default function GetInvolved() {
   return (
     <PageTransition>
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="bg-gradient-to-br from-bg-light via-bg-soft to-white pt-20 pb-16 px-5">
-        <div className="max-w-3xl mx-auto text-center">
-          <span className="inline-block font-body font-semibold text-xs uppercase tracking-widest text-accent bg-bg-card border border-border px-4 py-1.5 rounded-full mb-5">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary-dark via-footer to-primary-dark text-white pt-24 pb-20 px-5 border-b border-primary-mid/40">
+        <AmbientFloaters theme="dark" variant="contact" />
+        <RisingParticles count={14} />
+
+        <div className="relative z-10 max-w-3xl mx-auto text-center">
+          <span className="inline-block font-body font-semibold text-xs uppercase tracking-widest text-accent-mid bg-white/10 border border-white/20 px-4 py-1.5 rounded-full mb-5 shadow-sm">
             Get Involved
           </span>
-          <h1 className="font-heading font-bold text-4xl sm:text-5xl text-primary-dark leading-tight mb-5">
+          <h1 className="font-heading font-extrabold text-4xl sm:text-5xl text-white leading-tight mb-5 tracking-tight">
             Join the mission
           </h1>
-          <p className="font-body text-base text-primary-mid/80 leading-relaxed max-w-xl mx-auto">
+          <p className="font-body text-base text-white/80 leading-relaxed max-w-xl mx-auto">
             AquaVita is bigger than one school. Whether you want to donate, collaborate,
             replicate the system, or just say hello — we'd love to connect.
           </p>
@@ -65,7 +73,7 @@ export default function GetInvolved() {
       </section>
 
       {/* ── Ways to help ─────────────────────────────────────── */}
-      <section className="bg-bg-soft py-20 px-5">
+      <section className="bg-bg-soft py-20 px-5 relative">
         <div className="max-w-5xl mx-auto">
           <SectionHeader
             eyebrow="How You Can Help"
@@ -73,16 +81,22 @@ export default function GetInvolved() {
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {ways.map(({ icon: Icon, title, body }, i) => (
-              <RevealOnScroll key={title} delay={i * 0.08}>
-                <div className="bg-white rounded-3xl p-7 border border-border-light shadow-card h-full flex gap-5">
-                  <div className="w-11 h-11 shrink-0 rounded-2xl bg-bg-card flex items-center justify-center">
-                    <Icon size={20} className="text-accent" />
+              <RevealOnScroll key={title} delay={i * 0.08} direction="up">
+                <TiltCard maxTilt={8}>
+                  <div className="bg-white rounded-3xl p-7 sm:p-8 border-t-4 border-t-accent border-x border-b border-border-light shadow-card h-full flex gap-5">
+                    <motion.div
+                      animate={{ scale: [1, 1.12, 1] }}
+                      transition={{ duration: 3, repeat: Infinity, delay: i * 0.25, ease: 'easeInOut' }}
+                      className="w-12 h-12 shrink-0 rounded-2xl bg-bg-card border border-border flex items-center justify-center text-accent"
+                    >
+                      <Icon size={22} />
+                    </motion.div>
+                    <div>
+                      <h3 className="font-heading font-bold text-lg text-primary-dark mb-2">{title}</h3>
+                      <p className="font-body text-sm text-primary-mid/85 leading-relaxed">{body}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-heading font-bold text-primary-dark mb-2">{title}</h3>
-                    <p className="font-body text-sm text-primary-mid/80 leading-relaxed">{body}</p>
-                  </div>
-                </div>
+                </TiltCard>
               </RevealOnScroll>
             ))}
           </div>
@@ -101,33 +115,37 @@ export default function GetInvolved() {
             {/* Form */}
             <RevealOnScroll className="md:col-span-3">
               {submitted ? (
-                <div className="bg-bg-card rounded-3xl p-10 text-center border border-border">
-                  <div className="w-14 h-14 rounded-full bg-white border border-border flex items-center justify-center mx-auto mb-4">
-                    <Send size={22} className="text-accent" />
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-bg-card rounded-3xl p-10 text-center border border-border shadow-card"
+                >
+                  <div className="w-14 h-14 rounded-full bg-white border border-border flex items-center justify-center mx-auto mb-4 shadow-sm">
+                    <CheckCircle size={24} className="text-accent" />
                   </div>
                   <h3 className="font-heading font-bold text-primary-dark text-xl mb-2">
                     Message sent!
                   </h3>
-                  <p className="font-body text-sm text-primary-mid/80">
+                  <p className="font-body text-sm text-primary-mid/85">
                     Your mail client should have opened. If not, email us directly at{' '}
                     <a
                       href="mailto:aquavita.teams@gmail.com"
-                      className="text-accent hover:underline"
+                      className="text-accent hover:underline font-semibold"
                     >
                       aquavita.teams@gmail.com
                     </a>
                     .
                   </p>
-                </div>
+                </motion.div>
               ) : (
                 <form
                   onSubmit={handleSubmit}
-                  className="bg-bg-soft rounded-3xl p-8 border border-border-light space-y-5"
+                  className="bg-bg-soft/70 backdrop-blur-sm rounded-3xl p-8 border border-border-light shadow-card space-y-5"
                   noValidate
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <label className="block">
-                      <span className="font-body text-xs font-semibold text-primary-dark block mb-1.5">
+                      <span className="font-body text-xs font-bold text-primary-dark block mb-1.5 uppercase tracking-wider">
                         Name <span className="text-accent">*</span>
                       </span>
                       <input
@@ -137,11 +155,11 @@ export default function GetInvolved() {
                         value={form.name}
                         onChange={handleChange}
                         placeholder="Your name"
-                        className="w-full rounded-xl border border-border bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-primary-mid/40 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all"
+                        className="w-full rounded-xl border border-border bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-primary-mid/40 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all duration-200"
                       />
                     </label>
                     <label className="block">
-                      <span className="font-body text-xs font-semibold text-primary-dark block mb-1.5">
+                      <span className="font-body text-xs font-bold text-primary-dark block mb-1.5 uppercase tracking-wider">
                         Email <span className="text-accent">*</span>
                       </span>
                       <input
@@ -151,13 +169,13 @@ export default function GetInvolved() {
                         value={form.email}
                         onChange={handleChange}
                         placeholder="you@example.com"
-                        className="w-full rounded-xl border border-border bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-primary-mid/40 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all"
+                        className="w-full rounded-xl border border-border bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-primary-mid/40 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all duration-200"
                       />
                     </label>
                   </div>
 
                   <label className="block">
-                    <span className="font-body text-xs font-semibold text-primary-dark block mb-1.5">
+                    <span className="font-body text-xs font-bold text-primary-dark block mb-1.5 uppercase tracking-wider">
                       Subject
                     </span>
                     <input
@@ -166,12 +184,12 @@ export default function GetInvolved() {
                       value={form.subject}
                       onChange={handleChange}
                       placeholder="e.g. Collaboration enquiry"
-                      className="w-full rounded-xl border border-border bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-primary-mid/40 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all"
+                      className="w-full rounded-xl border border-border bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-primary-mid/40 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all duration-200"
                     />
                   </label>
 
                   <label className="block">
-                    <span className="font-body text-xs font-semibold text-primary-dark block mb-1.5">
+                    <span className="font-body text-xs font-bold text-primary-dark block mb-1.5 uppercase tracking-wider">
                       Message <span className="text-accent">*</span>
                     </span>
                     <textarea
@@ -181,82 +199,90 @@ export default function GetInvolved() {
                       value={form.message}
                       onChange={handleChange}
                       placeholder="Tell us who you are and how you'd like to get involved…"
-                      className="w-full rounded-xl border border-border bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-primary-mid/40 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all resize-none"
+                      className="w-full rounded-xl border border-border bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-primary-mid/40 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all duration-200 resize-none"
                     />
                   </label>
 
-                  <button
-                    type="submit"
-                    className="inline-flex items-center gap-2 bg-primary hover:bg-primary-mid transition-colors duration-200 text-white font-semibold font-body px-7 py-3 rounded-full shadow-sm hover:shadow-md"
-                  >
-                    Send Message <Send size={15} />
-                  </button>
+                  <MagneticButton pulse strength={0.3}>
+                    {() => (
+                      <button
+                        type="submit"
+                        className="inline-flex items-center gap-2 bg-primary hover:bg-primary-mid transition-all duration-200 text-white font-bold font-body px-8 py-3.5 rounded-full shadow-md hover:shadow-lg focus:outline-none"
+                      >
+                        Send Message <Send size={16} />
+                      </button>
+                    )}
+                  </MagneticButton>
                 </form>
               )}
             </RevealOnScroll>
 
             {/* Contact info */}
             <RevealOnScroll delay={0.15} className="md:col-span-2 space-y-5">
-              <div className="bg-bg-soft rounded-3xl p-7 border border-border-light">
-                <h3 className="font-heading font-bold text-primary-dark mb-5">Contact details</h3>
-                <ul className="space-y-4">
-                  <li className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-bg-card border border-border flex items-center justify-center shrink-0 mt-0.5">
-                      <MapPin size={14} className="text-accent" />
-                    </div>
-                    <div>
-                      <p className="font-body text-xs font-semibold text-primary-dark">Location</p>
-                      <p className="font-body text-sm text-primary-mid/80 mt-0.5">
-                        Rwanda Coding Academy<br />
-                        Musanze, Rwanda
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-bg-card border border-border flex items-center justify-center shrink-0 mt-0.5">
-                      <Mail size={14} className="text-accent" />
-                    </div>
-                    <div>
-                      <p className="font-body text-xs font-semibold text-primary-dark">Email</p>
-                      <a
-                        href="mailto:aquavita.teams@gmail.com"
-                        className="font-body text-sm text-accent hover:underline mt-0.5 block"
-                      >
-                        aquavita.teams@gmail.com
-                      </a>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-bg-card border border-border flex items-center justify-center shrink-0 mt-0.5">
-                      <Github size={14} className="text-accent" />
-                    </div>
-                    <div>
-                      <p className="font-body text-xs font-semibold text-primary-dark">GitHub</p>
-                      <a
-                        href="https://github.com/AquaVita"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-body text-sm text-accent hover:underline mt-0.5 block"
-                      >
-                        github.com/AquaVita
-                      </a>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+              <TiltCard maxTilt={6}>
+                <div className="bg-bg-soft/70 backdrop-blur-sm rounded-3xl p-7 border border-border-light shadow-card">
+                  <h3 className="font-heading font-bold text-primary-dark text-lg mb-5">Contact details</h3>
+                  <ul className="space-y-4">
+                    <li className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-bg-card border border-border flex items-center justify-center shrink-0 mt-0.5 text-accent">
+                        <MapPin size={16} />
+                      </div>
+                      <div>
+                        <p className="font-body text-xs font-bold text-primary-dark uppercase tracking-wider">Location</p>
+                        <p className="font-body text-sm text-primary-mid/85 mt-0.5">
+                          Rwanda Coding Academy<br />
+                          Musanze, Rwanda
+                        </p>
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-bg-card border border-border flex items-center justify-center shrink-0 mt-0.5 text-accent">
+                        <Mail size={16} />
+                      </div>
+                      <div>
+                        <p className="font-body text-xs font-bold text-primary-dark uppercase tracking-wider">Email</p>
+                        <a
+                          href="mailto:aquavita.teams@gmail.com"
+                          className="font-body text-sm text-accent hover:underline font-semibold mt-0.5 block"
+                        >
+                          aquavita.teams@gmail.com
+                        </a>
+                      </div>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-bg-card border border-border flex items-center justify-center shrink-0 mt-0.5 text-accent">
+                        <Github size={16} />
+                      </div>
+                      <div>
+                        <p className="font-body text-xs font-bold text-primary-dark uppercase tracking-wider">GitHub</p>
+                        <a
+                          href="https://github.com/AquaVita"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-body text-sm text-accent hover:underline font-semibold mt-0.5 block"
+                        >
+                          github.com/AquaVita
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </TiltCard>
 
-              <div className="bg-gradient-to-br from-primary-dark to-primary rounded-3xl p-7">
-                <h4 className="font-heading font-bold text-white mb-2">Replicate the system</h4>
-                <p className="font-body text-sm text-white/75 leading-relaxed mb-4">
+              <div className="relative overflow-hidden bg-gradient-to-br from-primary-dark to-primary rounded-3xl p-7 shadow-card">
+                <div className="absolute top-0 right-0 w-28 h-28 bg-accent/20 rounded-full blur-xl pointer-events-none" />
+                <h4 className="font-heading font-extrabold text-white text-lg mb-2">Replicate the system</h4>
+                <p className="font-body text-sm text-white/80 leading-relaxed mb-5">
                   Want to build an AquaVita system at your school? We'll share our full
                   materials list, construction guide, and data templates for free.
                 </p>
-                <a
+                <motion.a
+                  whileHover={{ x: 3 }}
                   href="mailto:aquavita.teams@gmail.com?subject=Replication%20kit%20request"
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold font-body text-white underline underline-offset-2"
+                  className="inline-flex items-center gap-1.5 text-sm font-bold font-body text-white underline underline-offset-4 hover:text-accent-mid transition-colors"
                 >
                   Request the replication kit →
-                </a>
+                </motion.a>
               </div>
             </RevealOnScroll>
           </div>
@@ -265,3 +291,6 @@ export default function GetInvolved() {
     </PageTransition>
   )
 }
+
+
+

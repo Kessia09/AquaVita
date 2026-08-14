@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react'
-import { NavLink, Link } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Logo from './Logo'
 
-const links = [
-  { to: '/how-it-works', label: 'How It Works' },
-  { to: '/impact', label: 'Impact' },
-  { to: '/team', label: 'Team' },
-  { to: '/get-involved', label: 'Get Involved' },
+const tabs = [
+  { id: 'home', label: 'Overview' },
+  { id: 'how-it-works', label: 'How It Works' },
+  { id: 'impact', label: 'Impact' },
+  { id: 'team', label: 'Team' },
+  { id: 'get-involved', label: 'Get Involved' },
 ]
 
-export default function Navbar() {
+export default function Navbar({ activeTab = 'home', onSelectTab }) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -20,91 +21,119 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  const navBase =
-    'text-sm font-semibold font-body transition-colors duration-200 relative py-1 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-accent after:transition-all after:duration-200'
+  const handleTabClick = (tabId) => {
+    if (onSelectTab) {
+      onSelectTab(tabId)
+    }
+    setOpen(false)
+  }
 
   return (
     <nav
       className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled
           ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-border'
-          : 'bg-white/80 backdrop-blur-sm border-b border-border/50'
+          : 'bg-white/85 backdrop-blur-sm border-b border-border/50'
       }`}
     >
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" onClick={() => setOpen(false)} aria-label="AquaVita home">
-            <Logo size="sm" />
-          </Link>
+          <button
+            onClick={() => handleTabClick('home')}
+            className="text-left focus:outline-none"
+            aria-label="AquaVita overview"
+          >
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <Logo size="sm" />
+            </motion.div>
+          </button>
 
-          {/* Desktop links */}
+          {/* Desktop Tab buttons */}
           <div className="hidden md:flex items-center gap-7">
-            {links.map(({ to, label }) => (
-              <NavLink
-                key={to}
-                to={to}
-                className={({ isActive }) =>
-                  `${navBase} ${
-                    isActive
-                      ? 'text-accent after:w-full'
-                      : 'text-primary-mid hover:text-accent after:w-0 hover:after:w-full'
-                  }`
-                }
+            {tabs.map(({ id, label }) => {
+              const isActive = activeTab === id
+              return (
+                <button
+                  key={id}
+                  onClick={() => handleTabClick(id)}
+                  className={`text-sm font-semibold font-body transition-colors duration-200 relative py-1.5 focus:outline-none ${
+                    isActive ? 'text-accent font-bold' : 'text-primary-mid hover:text-accent'
+                  }`}
+                >
+                  {label}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeNavIndicator"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent rounded-full"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </button>
+              )
+            })}
+            <motion.div whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.97 }}>
+              <button
+                onClick={() => handleTabClick('get-involved')}
+                className="ml-2 bg-primary hover:bg-primary-mid transition-all duration-200 text-white text-sm font-semibold font-body px-5.5 py-2.5 shadow-sm hover:shadow-md block focus:outline-none"
               >
-                {label}
-              </NavLink>
-            ))}
-            <Link
-              to="/get-involved"
-              className="ml-2 bg-primary hover:bg-primary-mid transition-colors duration-200 text-white text-sm font-semibold font-body px-5 py-2 rounded-full shadow-sm hover:shadow-md"
-            >
-              Contact Us
-            </Link>
+                Contact Us
+              </button>
+            </motion.div>
           </div>
 
           {/* Mobile burger */}
-          <button
-            className="md:hidden p-2 rounded-xl text-primary-mid hover:bg-bg-card transition-colors"
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            className="md:hidden p-2 rounded-xl text-primary-mid hover:bg-bg-card transition-colors focus:outline-none"
             onClick={() => setOpen(!open)}
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
           >
             {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          </motion.button>
         </div>
       </div>
 
       {/* Mobile menu */}
-      {open && (
-        <div className="md:hidden border-t border-border bg-white/98 backdrop-blur-md">
-          <div className="max-w-6xl mx-auto px-5 py-4 flex flex-col gap-1">
-            {links.map(({ to, label }) => (
-              <NavLink
-                key={to}
-                to={to}
-                onClick={() => setOpen(false)}
-                className={({ isActive }) =>
-                  `font-body font-semibold text-sm px-3 py-2.5 rounded-xl transition-colors ${
-                    isActive
-                      ? 'text-accent bg-bg-card'
-                      : 'text-primary-mid hover:text-accent hover:bg-bg-light'
-                  }`
-                }
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="md:hidden border-t border-border bg-white/98 backdrop-blur-md overflow-hidden"
+          >
+            <div className="max-w-6xl mx-auto px-5 py-4 flex flex-col gap-1">
+              {tabs.map(({ id, label }) => {
+                const isActive = activeTab === id
+                return (
+                  <button
+                    key={id}
+                    onClick={() => handleTabClick(id)}
+                    className={`font-body font-semibold text-sm px-3.5 py-3 rounded-xl text-left transition-colors focus:outline-none ${
+                      isActive
+                        ? 'text-accent bg-bg-card font-bold'
+                        : 'text-primary-mid hover:text-accent hover:bg-bg-light'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                )
+              })}
+              <button
+                onClick={() => handleTabClick('get-involved')}
+                className="mt-2 bg-primary text-white text-sm font-semibold font-body px-5 py-3 text-center shadow-sm focus:outline-none"
               >
-                {label}
-              </NavLink>
-            ))}
-            <Link
-              to="/get-involved"
-              onClick={() => setOpen(false)}
-              className="mt-2 bg-primary text-white text-sm font-semibold font-body px-5 py-2.5 rounded-full text-center"
-            >
-              Contact Us
-            </Link>
-          </div>
-        </div>
-      )}
+                Contact Us
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   )
 }
+
+
