@@ -21,9 +21,9 @@ export default function Navbar({ activeTab = 'home', onSelectTab }) {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  const handleTabClick = (tabId) => {
+  const handleTabClick = (tabId, scrollTarget) => {
     if (onSelectTab) {
-      onSelectTab(tabId)
+      onSelectTab(tabId, scrollTarget)
     }
     setOpen(false)
   }
@@ -74,8 +74,8 @@ export default function Navbar({ activeTab = 'home', onSelectTab }) {
             })}
             <motion.div whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.97 }}>
               <button
-                onClick={() => handleTabClick('get-involved')}
-                className="ml-2 bg-primary hover:bg-primary-mid transition-all duration-200 text-white text-sm font-semibold font-body px-5.5 py-2.5 shadow-sm hover:shadow-md block focus:outline-none"
+                onClick={() => handleTabClick('get-involved', 'contact-form')}
+                className="ml-2 bg-primary hover:bg-primary-mid transition-all duration-200 text-white text-sm font-semibold font-body px-6 py-2.5 rounded-full shadow-sm hover:shadow-md focus:outline-none"
               >
                 Contact Us
               </button>
@@ -123,8 +123,8 @@ export default function Navbar({ activeTab = 'home', onSelectTab }) {
                 )
               })}
               <button
-                onClick={() => handleTabClick('get-involved')}
-                className="mt-2 bg-primary text-white text-sm font-semibold font-body px-5 py-3 text-center shadow-sm focus:outline-none"
+                onClick={() => handleTabClick('get-involved', 'contact-form')}
+                className="mt-2 bg-primary hover:bg-primary-mid transition-colors duration-200 text-white text-sm font-semibold font-body px-5 py-3 rounded-full text-center shadow-sm focus:outline-none"
               >
                 Contact Us
               </button>
@@ -135,5 +135,3 @@ export default function Navbar({ activeTab = 'home', onSelectTab }) {
     </nav>
   )
 }
-
-

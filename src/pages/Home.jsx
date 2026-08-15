@@ -70,7 +70,7 @@ export default function Home({ onSelectTab }) {
 
         <div className="relative z-10 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center min-h-[600px]">
-            
+
             {/* Left: Content */}
             <motion.div
               className="flex flex-col justify-center h-full"
@@ -88,7 +88,11 @@ export default function Home({ onSelectTab }) {
                 Rwanda Coding Academy · Student Initiative
               </motion.span>
 
-              {/* Bouncy Spring Word-Split Headline */}
+              {/* Bouncy Spring Word-Split Headline
+                  NOTE: the animated transform lives on the outer motion.span (plain inline-block).
+                  The gradient-text class lives on a separate, non-animated inner span so that
+                  Framer Motion's transform never sits on the same element as background-clip: text —
+                  combining the two caused descenders (g, y) to render clipped in Chrome/WebKit. */}
               <h1 className="font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl text-primary-dark leading-[1.15] mb-6 tracking-tight flex flex-wrap gap-x-3 gap-y-2">
                 {headlineWords1.map((word, index) => (
                   <motion.span
@@ -101,9 +105,9 @@ export default function Home({ onSelectTab }) {
                       duration: 0.65,
                       delay: 0.2 + index * 0.08,
                     }}
-                    className={word === 'greywater' ? 'gradient-text inline-block' : 'inline-block'}
+                    className="inline-block"
                   >
-                    {word}
+                    <span className={word === 'greywater' ? 'gradient-text' : ''}>{word}</span>
                   </motion.span>
                 ))}
                 <span className="w-full" />
@@ -118,9 +122,9 @@ export default function Home({ onSelectTab }) {
                       duration: 0.65,
                       delay: 0.4 + index * 0.08,
                     }}
-                    className={word === 'fresh' || word === 'greens' ? 'gradient-text inline-block' : 'inline-block'}
+                    className="inline-block"
                   >
-                    {word}
+                    <span className={word === 'fresh' || word === 'greens' ? 'gradient-text' : ''}>{word}</span>
                   </motion.span>
                 ))}
               </h1>
@@ -198,7 +202,7 @@ export default function Home({ onSelectTab }) {
                   aspectClass="aspect-[16/9]"
                   showCaption={false}
                 />
-                
+
                 {/* Floating badge overlay */}
                 <motion.div
                   animate={{ y: [0, -6, 0] }}
@@ -240,7 +244,7 @@ export default function Home({ onSelectTab }) {
                   aspectClass="aspect-square"
                   showCaption={false}
                 />
-                
+
                 {/* Floating badge on this image too */}
                 <motion.div
                   animate={{ y: [0, 6, 0] }}
@@ -344,6 +348,3 @@ export default function Home({ onSelectTab }) {
     </PageTransition>
   )
 }
-
-
-

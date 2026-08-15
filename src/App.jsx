@@ -18,6 +18,12 @@ export default function App() {
   })
   const prevTabRef = useRef(activeTab)
 
+  // Holds a pending scroll-to-id request (e.g. 'contact-form') across the tab
+  // transition. We don't guess a timeout delay — instead we scroll inside
+  // onAnimationComplete below, which Framer Motion fires precisely when the
+  // relevant animate/exit transition actually finishes.
+  const pendingScrollRef = useRef(null)
+
   // Determine slide direction (forward or backward) based on tab index order
   const currentIndex = VALID_TABS.indexOf(activeTab)
   const prevIndex = VALID_TABS.indexOf(prevTabRef.current)
@@ -39,11 +45,39 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange)
   }, [activeTab])
 
-  const handleSelectTab = (tabId) => {
-    if (VALID_TABS.includes(tabId)) {
-      setActiveTab(tabId)
-      window.location.hash = `#${tabId}`
+  const handleSelectTab = (tabId, scrollTarget) => {
+    if (!VALID_TABS.includes(tabId)) return
+
+    const isSameTab = tabId === activeTab
+    setActiveTab(tabId)
+    window.location.hash = `#${tabId}`
+
+    if (scrollTarget) {
+      if (isSameTab) {
+        // Already on this tab — the element exists right now, no transition to wait for.
+        document.getElementById(scrollTarget)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      } else {
+        // Switching tabs — stash the target. handleTabAnimationComplete (below)
+        // will pick it up once the new panel has actually finished mounting/animating in.
+        pendingScrollRef.current = scrollTarget
+      }
+    } else {
       window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
+  // Fires once per motion.div whenever ITS OWN animate/exit transition completes.
+  // Under AnimatePresence mode="wait", the OUTGOING page's exit fires this first —
+  // at that point the new page isn't mounted yet, so the lookup below simply finds
+  // nothing and does nothing. Shortly after, the INCOMING page mounts, finishes its
+  // enter transition, and fires this again — at which point the target element is
+  // guaranteed to exist, so we scroll to it then and clear the pending ref.
+  const handleTabAnimationComplete = () => {
+    if (!pendingScrollRef.current) return
+    const el = document.getElementById(pendingScrollRef.current)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      pendingScrollRef.current = null
     }
   }
 
@@ -91,6 +125,7 @@ export default function App() {
               duration: 0.35,
               ease: [0.25, 1, 0.5, 1],
             }}
+            onAnimationComplete={handleTabAnimationComplete}
           >
             {renderTabContent()}
           </motion.div>
