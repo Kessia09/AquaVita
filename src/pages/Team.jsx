@@ -8,18 +8,18 @@ import AmbientFloaters from '../components/AmbientFloaters'
 // ── Team data ────────────────────────────────────────────────────────────────
 // Images are resolved from /images/ (public folder via Vite)
 const coreTeam = [
-  { name: 'Kenny Kirenga', role: 'Project Lead & Systems Design', image: '/images/KIRENGA_Kenny.png' },
-  { name: 'Gloria', role: 'Biology & Water Quality', image: '/images/gloria.png' },
-  { name: 'Kessia', role: 'Engineering & Construction', image: '/images/kessia.png' },
-  { name: 'Joyeuse', role: 'Data & Research', image: '/images/joyeuse.png' },
-  { name: 'Aaron', role: 'Community Outreach', image: '/images/aaron.png' },
-  { name: 'Oreste', role: 'Plant Science & Harvesting', image: '/images/oreste.jpg' },
-  { name: 'Nelson', role: 'Maintenance & Documentation', image: '/images/nelson.jpg' },
-  { name: 'Bahati', role: 'Design & Communication', image: '/images/bahati.jpg' },
-  { name: 'Manene', role: 'Biochar Production', image: '/images/manene.jpeg' },
-  { name: 'Kelia', role: 'Web Development', image: '/images/Kelia.jpg' },
-  { name: 'Laure', role: 'Photography & Media', image: '/images/Laure.jpg' },
-  { name: 'Happy', role: 'Budget & Procurement', image: '/images/happy.jpg' },
+  { name: 'Irasubiza Saly Nelson', role: 'CEO & Project Lead', image: '/images/nelson.jpg' },
+  { name: 'Iradukunda Joyeuse', role: 'CTO — Sensors & Software', image: '/images/joyeuse.png' },
+  { name: 'Simbi Kelia', role: 'COO — Garden Operations', image: '/images/Kelia.jpg' },
+  { name: 'Cyizere Happy', role: 'Head of Engineering — Filtration Systems', image: '/images/happy.jpg' },
+  { name: 'Ganwa Anne Laure', role: 'Head of Product — Health & Herbs', image: '/images/Laure.jpg' },
+  { name: 'Ngabo Oreste', role: 'Head of Data & Analytics', image: '/images/oreste.jpg' },
+  { name: 'Rukundo Bahati Samuel', role: 'Head of Infrastructure', image: '/images/bahati.jpg' },
+  { name: 'Manene Junior', role: 'Head of Marketing & Communications', image: '/images/manene.jpeg' },
+  { name: 'Irasubiza Ntwari Gloria', role: 'Head of Partnerships', image: '/images/gloria.png' },
+  { name: 'Kirenga Kenny', role: 'Head of Education & Training', image: '/images/KIRENGA_Kenny.png' },
+  { name: 'Agasaro Ndinda Kessia', role: 'Head of People & Wellness', image: '/images/kessia.png' },
+  { name: 'Twarimitswe Aaron', role: 'Head of Community Outreach', image: '/images/aaron.png' },
 ]
 
 const advisors = [
