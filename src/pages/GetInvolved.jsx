@@ -104,7 +104,7 @@ export default function GetInvolved({ onSelectTab }) {
       </section>
 
       {/* ── Contact form + info ──────────────────────────────── */}
-      <section className="bg-white py-20 px-5">
+      <section id="contact-form" className="bg-white py-20 px-5">
         <div className="max-w-5xl mx-auto">
           <SectionHeader
             eyebrow="Contact"
