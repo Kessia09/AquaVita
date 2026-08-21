@@ -10,6 +10,8 @@ import AmbientFloaters from '../components/AmbientFloaters'
 import TiltCard from '../components/TiltCard'
 import MagneticButton from '../components/MagneticButton'
 import RisingParticles from '../components/RisingParticles'
+import SectionDivider from '../components/SectionDivider'
+import DecorativeCorner from '../components/DecorativeCorner'
 
 const highlights = [
   {
@@ -219,17 +221,27 @@ export default function Home({ onSelectTab }) {
       </section>
 
       {/* ── Stats ────────────────────────────────────────────── */}
-      <section className="bg-white py-16 px-5 relative z-10 border-y border-border-light/60">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          {stats.map((s) => (
-            <StatCard key={s.label} {...s} />
-          ))}
+      <section className="relative bg-white py-20 px-5 grid-pattern-subtle">
+        {/* Section dividers */}
+        <SectionDivider variant="wave" color="light" flip={true} />
+        
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            {stats.map((s) => (
+              <StatCard key={s.label} {...s} />
+            ))}
+          </div>
         </div>
+
+        <SectionDivider variant="curve" color="soft" />
       </section>
 
       {/* ── How it works preview ─────────────────────────────── */}
-      <section className="bg-bg-soft py-20 sm:py-24 px-5 relative overflow-hidden">
-        <div className="pointer-events-none absolute top-1/2 -left-20 w-80 h-80 rounded-full bg-accent/5 blur-3xl" />
+      <section className="relative bg-bg-soft py-20 sm:py-24 px-5 overflow-hidden grid-pattern-lines">
+        {/* Layered background elements */}
+        <div className="pointer-events-none absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-accent/3 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-1/4 -right-32 w-80 h-80 rounded-full bg-primary/4 blur-3xl" />
+        
         <div className="max-w-6xl mx-auto relative z-10">
           <SectionHeader
             eyebrow="The System"
@@ -240,18 +252,25 @@ export default function Home({ onSelectTab }) {
             {highlights.map(({ icon: Icon, title, body }, i) => (
               <RevealOnScroll key={title} delay={i * 0.1} direction="up">
                 <TiltCard maxTilt={8}>
-                  <div className="bg-white rounded-3xl p-7 sm:p-8 border border-border-light shadow-card h-full flex flex-col justify-between">
-                    <div>
+                  <div className="relative bg-white rounded-3xl p-7 sm:p-8 border-gradient shadow-layered hover:shadow-layered-lg transition-all duration-300 h-full flex flex-col justify-between group overflow-hidden">
+                    {/* Decorative corners */}
+                    <DecorativeCorner position="top-left" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    {/* Content */}
+                    <div className="relative z-10">
                       <motion.div
                         animate={{ scale: [1, 1.12, 1], rotate: [0, 5, 0] }}
                         transition={{ duration: 4, repeat: Infinity, delay: i * 0.3, ease: 'easeInOut' }}
-                        className="w-12 h-12 rounded-2xl bg-bg-card border border-border flex items-center justify-center mb-6 text-accent"
+                        className="w-12 h-12 rounded-2xl bg-bg-card border border-border flex items-center justify-center mb-6 text-accent shadow-sm"
                       >
                         <Icon size={22} />
                       </motion.div>
                       <h3 className="font-heading font-bold text-xl text-primary-dark mb-3">{title}</h3>
                       <p className="font-body text-sm text-primary-mid/80 leading-relaxed">{body}</p>
                     </div>
+
+                    {/* Hover gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent/0 via-accent/2 to-primary/3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 </TiltCard>
               </RevealOnScroll>
@@ -260,13 +279,16 @@ export default function Home({ onSelectTab }) {
           <RevealOnScroll className="text-center mt-12" delay={0.3}>
             <button
               onClick={() => handleTabClick('how-it-works')}
-              className="inline-flex items-center gap-2 text-accent font-bold font-body text-sm hover:text-accent-mid group focus:outline-none"
+              className="inline-flex items-center gap-2 text-accent font-bold font-body text-sm hover:text-accent-mid group focus:outline-none glass-effect px-6 py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-200"
             >
               Full process breakdown{' '}
               <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-1" />
             </button>
           </RevealOnScroll>
         </div>
+
+        {/* Section divider */}
+        <SectionDivider variant="tilt" color="white" />
       </section>
 
       {/* ── CTA ──────────────────────────────────────────────── */}

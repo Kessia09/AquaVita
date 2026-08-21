@@ -3,6 +3,8 @@ import PageTransition from '../components/PageTransition'
 import SectionHeader from '../components/SectionHeader'
 import RevealOnScroll from '../components/RevealOnScroll'
 import TeamCard from '../components/TeamCard'
+import SectionDivider from '../components/SectionDivider'
+import DecorativeCorner from '../components/DecorativeCorner'
 import AmbientFloaters from '../components/AmbientFloaters'
 
 // ── Team data ────────────────────────────────────────────────────────────────
@@ -44,11 +46,11 @@ export default function Team() {
   return (
     <PageTransition>
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-bg-soft via-bg-light to-white pt-24 pb-20 px-5 border-b border-border/60">
+      <section className="relative overflow-hidden bg-gradient-to-br from-bg-soft via-bg-light to-white pt-24 pb-20 px-5 grid-pattern-subtle">
         <AmbientFloaters theme="light" variant="team" />
 
         <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <span className="inline-block font-body font-semibold text-xs uppercase tracking-widest text-accent bg-bg-card border border-border px-4 py-1.5 rounded-full mb-5 shadow-sm">
+          <span className="inline-block font-body font-semibold text-xs uppercase tracking-widest text-accent glass-effect px-4 py-1.5 rounded-full mb-5 shadow-sm">
             The Team
           </span>
           <h1 className="font-heading font-extrabold text-4xl sm:text-5xl text-primary-dark leading-tight mb-5 tracking-tight">
@@ -61,6 +63,8 @@ export default function Team() {
             maintains a part of the system.
           </p>
         </div>
+
+        <SectionDivider variant="curve" color="soft" />
       </section>
 
       {/* ── Core team ────────────────────────────────────────── */}
