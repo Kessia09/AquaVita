@@ -1,12 +1,8 @@
-import { ArrowDown, Flame } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { ArrowDown } from 'lucide-react'
 import PageTransition from '../components/PageTransition'
 import SectionHeader from '../components/SectionHeader'
 import RevealOnScroll from '../components/RevealOnScroll'
 import ImagePlaceholder from '../components/ImagePlaceholder'
-import AmbientFloaters from '../components/AmbientFloaters'
-import TiltCard from '../components/TiltCard'
-import StepIconAnimation from '../components/StepIconAnimation'
 
 const steps = [
   {
@@ -55,18 +51,16 @@ export default function HowItWorks() {
   return (
     <PageTransition>
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-bg-pale via-bg-card/40 to-bg-soft pt-24 pb-20 px-5 border-b border-border/60">
-        <AmbientFloaters theme="light" variant="process" />
-
-        <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <span className="inline-block font-body font-semibold text-xs uppercase tracking-widest text-primary-dark bg-bg-card border border-border px-4 py-1.5 rounded-full mb-5 shadow-sm">
+      <section className="bg-white grid-bg pt-20 pb-16 px-5">
+        <div className="max-w-3xl mx-auto text-center">
+          <span className="pill-badge mb-6">
             The Process
           </span>
-          <h1 className="font-heading font-extrabold text-4xl sm:text-5xl text-primary-dark leading-tight mb-5 tracking-tight">
+          <h1 className="heading-serif-bold text-4xl sm:text-5xl text-primary-dark mb-5">
             From wastewater to<br />
-            <span className="gradient-text">fresh vegetables</span>
+            fresh vegetables
           </h1>
-          <p className="font-body text-base text-primary-mid/85 leading-relaxed max-w-xl mx-auto">
+          <p className="font-body text-lg text-gray-600 leading-relaxed max-w-xl mx-auto">
             Our five-stage system was designed entirely by students using locally available
             materials. Here's exactly how dirty water becomes clean enough to grow food.
           </p>
@@ -74,68 +68,41 @@ export default function HowItWorks() {
       </section>
 
       {/* ── Steps ────────────────────────────────────────────── */}
-      <section className="bg-bg-pale/80 py-20 px-5 relative overflow-hidden">
-        <div className="max-w-5xl mx-auto space-y-16 sm:space-y-20 relative z-10">
+      <section className="bg-gray-50 grid-bg py-20 px-5">
+        <div className="max-w-5xl mx-auto space-y-16">
           {steps.map(({ number, title, body, image }, i) => (
-            <RevealOnScroll key={number} delay={0.05} direction="up">
-              <TiltCard maxTilt={6}>
-                <div
-                  className={`flex flex-col ${
-                    i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                  } gap-8 md:gap-12 items-center bg-white/90 backdrop-blur-sm p-6 sm:p-8 rounded-3xl border-t-4 border-t-accent border-x border-b border-border-light shadow-card hover:shadow-card-hover transition-all duration-300`}
-                >
-                  {/* Text */}
-                  <div className="flex-1">
-                    <div className="flex items-center gap-4 mb-3">
-                      <motion.span
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: 0.1 }}
-                        className="font-heading font-extrabold text-4xl sm:text-5xl gradient-text leading-none select-none"
-                      >
-                        {number}
-                      </motion.span>
-                      {/* Meaningful Custom Motion Icon for each step */}
-                      <StepIconAnimation stepNumber={number} />
-                    </div>
-                    <h2 className="font-heading font-bold text-2xl text-primary-dark mb-3">
-                      {title}
-                    </h2>
-                    <p className="font-body text-sm text-primary-mid/85 leading-relaxed max-w-lg">
-                      {body}
-                    </p>
-                  </div>
-                  {/* Image */}
-                  <div className="flex-1 w-full">
-                    <ImagePlaceholder
-                      label={image}
-                      aspectClass="aspect-[4/3]"
-                      className="w-full shadow-md"
-                    />
+            <RevealOnScroll key={number} delay={0.05}>
+              <div
+                className={`flex flex-col ${
+                  i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                } gap-8 items-center`}
+              >
+                {/* Text */}
+                <div className="flex-1">
+                  <span className="heading-serif-bold text-4xl text-gray-300 mb-2 block">
+                    {number}
+                  </span>
+                  <h2 className="heading-serif-bold text-2xl text-primary-dark mb-3">
+                    {title}
+                  </h2>
+                  <p className="font-body text-gray-600 leading-relaxed max-w-lg">
+                    {body}
+                  </p>
+                </div>
+                {/* Image */}
+                <div className="flex-1 w-full">
+                  <div className="card-clean aspect-[4/3] flex items-center justify-center">
+                    <ImagePlaceholder label={image} aspectClass="aspect-[4/3]" className="w-full" />
                   </div>
                 </div>
-              </TiltCard>
+              </div>
 
-              {/* Sequential connector line & animated arrow icon */}
+              {/* Arrow connector */}
               {i < steps.length - 1 && (
-                <div className="flex flex-col items-center justify-center my-6">
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    whileInView={{ height: 40, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="w-0.5 bg-gradient-to-b from-accent to-accent-mid rounded-full"
-                  />
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.4 }}
-                    className="w-10 h-10 rounded-full bg-bg-card border border-border flex items-center justify-center shadow-sm"
-                  >
-                    <ArrowDown size={16} className="text-accent animate-bounce" />
-                  </motion.div>
+                <div className="flex justify-center mt-10">
+                  <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm">
+                    <ArrowDown size={16} className="text-accent" />
+                  </div>
                 </div>
               )}
             </RevealOnScroll>
@@ -144,7 +111,7 @@ export default function HowItWorks() {
       </section>
 
       {/* ── Materials ────────────────────────────────────────── */}
-      <section className="bg-white py-20 px-5 relative">
+      <section className="bg-white grid-bg py-20 px-5">
         <div className="max-w-4xl mx-auto">
           <SectionHeader
             eyebrow="Materials"
@@ -152,24 +119,24 @@ export default function HowItWorks() {
             subtitle="We deliberately chose materials that are affordable, locally available, and easy to maintain — so the system can be replicated anywhere."
           />
           <RevealOnScroll>
-            <div className="overflow-hidden rounded-3xl border border-border-light shadow-card bg-white">
-              <table className="w-full text-sm font-body">
+            <div className="card-clean overflow-hidden">
+              <table className="w-full">
                 <thead>
-                  <tr className="bg-bg-card border-b border-border">
-                    <th className="text-left px-6 py-4 font-bold text-primary-dark uppercase tracking-wider text-xs">Material</th>
-                    <th className="text-left px-6 py-4 font-bold text-primary-dark uppercase tracking-wider text-xs">Source</th>
+                  <tr className="bg-gray-50 border-b border-gray-200">
+                    <th className="text-left px-6 py-4 heading-serif font-bold text-primary-dark">Material</th>
+                    <th className="text-left px-6 py-4 heading-serif font-bold text-primary-dark">Source</th>
                   </tr>
                 </thead>
                 <tbody>
                   {materials.map(({ item, source }, i) => (
                     <tr
                       key={item}
-                      className={`border-b border-border-light last:border-0 hover:bg-bg-light/60 transition-colors duration-150 ${
-                        i % 2 === 0 ? 'bg-white' : 'bg-bg-soft/70'
+                      className={`border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors ${
+                        i % 2 === 0 ? 'bg-white' : 'bg-gray-25'
                       }`}
                     >
-                      <td className="px-6 py-4 text-primary-dark font-medium">{item}</td>
-                      <td className="px-6 py-4 text-primary-mid/80">{source}</td>
+                      <td className="px-6 py-4 font-body font-medium text-primary-dark">{item}</td>
+                      <td className="px-6 py-4 font-body text-gray-600">{source}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -180,36 +147,24 @@ export default function HowItWorks() {
       </section>
 
       {/* ── Science note ─────────────────────────────────────── */}
-      <section className="bg-gradient-to-br from-bg-light via-bg-soft to-white py-20 px-5 relative overflow-hidden">
+      <section className="bg-gray-50 grid-bg py-20 px-5">
         <RevealOnScroll className="max-w-3xl mx-auto">
-          <TiltCard maxTilt={6}>
-            <div className="bg-white rounded-3xl p-8 sm:p-10 border border-border shadow-card hover:shadow-card-hover transition-all duration-300 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-full blur-2xl pointer-events-none" />
-              <div className="flex items-center gap-3 mb-4">
-                <motion.div
-                  animate={{ rotate: [-8, 8, -8] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                  className="w-10 h-10 rounded-2xl bg-bg-card border border-border flex items-center justify-center text-accent shrink-0"
-                >
-                  <Flame size={20} />
-                </motion.div>
-                <h3 className="font-heading font-extrabold text-2xl text-primary-dark">
-                  Why biochar?
-                </h3>
-              </div>
-              <p className="font-body text-sm sm:text-base text-primary-mid/85 leading-relaxed mb-4">
-                Biochar is a porous charcoal produced by heating organic material (like wood or
-                crop residue) in a low-oxygen environment — a process called pyrolysis. Its
-                highly porous surface area hosts billions of beneficial microbes that break down
-                organic pollutants in greywater.
-              </p>
-              <p className="font-body text-sm sm:text-base text-primary-mid/85 leading-relaxed">
-                Unlike commercial activated carbon, biochar can be produced locally from
-                agricultural by-products at very low cost. Our batch is made from wood waste
-                collected around the RCA campus, making it essentially a zero-cost input.
-              </p>
-            </div>
-          </TiltCard>
+          <div className="card-clean">
+            <h3 className="heading-serif-bold text-2xl text-primary-dark mb-4">
+              Why biochar?
+            </h3>
+            <p className="font-body text-gray-600 leading-relaxed mb-4">
+              Biochar is a porous charcoal produced by heating organic material (like wood or
+              crop residue) in a low-oxygen environment — a process called pyrolysis. Its
+              highly porous surface area hosts billions of beneficial microbes that break down
+              organic pollutants in greywater.
+            </p>
+            <p className="font-body text-gray-600 leading-relaxed">
+              Unlike commercial activated carbon, biochar can be produced locally from
+              agricultural by-products at very low cost. Our batch is made from wood waste
+              collected around the RCA campus, making it essentially a zero-cost input.
+            </p>
+          </div>
         </RevealOnScroll>
       </section>
     </PageTransition>

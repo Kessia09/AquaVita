@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;0,8..60,800;1,8..60,400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,160 +10,67 @@
   }
 
   body {
-    @apply font-body bg-bg-soft text-primary-dark antialiased;
+    @apply font-body bg-white text-primary-dark antialiased;
     line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading;
+    font-family: 'Source Serif 4', serif;
   }
 }
 
 @layer utilities {
-  .gradient-text {
-    background: linear-gradient(135deg, #1f704b, #159e6b);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .gradient-text-light {
-    background: linear-gradient(135deg, #389e73, #7dcba8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-
-  .preserve-3d {
-    transform-style: preserve-3d;
-  }
-
-  .shadow-pulse {
-    animation: ctaPulse 2.2s infinite ease-in-out;
-  }
-
-  /* Grid patterns for depth */
-  .grid-pattern-dots {
-    background-image: radial-gradient(circle, rgba(47, 122, 87, 0.08) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-
-  .grid-pattern-lines {
+  /* Fine line grid background */
+  .grid-bg {
     background-image: 
-      linear-gradient(rgba(47, 122, 87, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(47, 122, 87, 0.06) 1px, transparent 1px);
+      linear-gradient(rgba(47, 122, 87, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(47, 122, 87, 0.08) 1px, transparent 1px);
     background-size: 32px 32px;
+    mask: linear-gradient(180deg, 
+      rgba(0,0,0,1) 0%, 
+      rgba(0,0,0,0.9) 60%, 
+      rgba(0,0,0,0.3) 90%, 
+      rgba(0,0,0,0) 100%
+    );
   }
 
-  .grid-pattern-subtle {
-    background-image: radial-gradient(circle, rgba(21, 158, 107, 0.04) 1px, transparent 1px);
-    background-size: 20px 20px;
+  /* Typography system */
+  .heading-serif {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    line-height: 1.2;
   }
 
-  /* Layered depth shadows */
-  .shadow-layered {
-    box-shadow: 
-      0 1px 2px rgba(27, 90, 66, 0.04),
-      0 4px 8px rgba(27, 90, 66, 0.06),
-      0 12px 24px rgba(27, 90, 66, 0.08);
+  .heading-serif-bold {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 800;
+    line-height: 1.1;
   }
 
-  .shadow-layered-lg {
-    box-shadow: 
-      0 2px 4px rgba(27, 90, 66, 0.05),
-      0 8px 16px rgba(27, 90, 66, 0.08),
-      0 20px 40px rgba(27, 90, 66, 0.12);
+  /* Pill badge system */
+  .pill-badge {
+    @apply inline-flex items-center gap-2 bg-white text-primary-dark font-bold text-xs uppercase tracking-wider px-4 py-2 rounded-full shadow-sm;
   }
 
-  .shadow-inset-soft {
-    box-shadow: inset 0 2px 8px rgba(27, 90, 66, 0.06);
-  }
-
-  /* Border gradients */
-  .border-gradient {
-    border: 1px solid transparent;
-    background: 
-      linear-gradient(white, white) padding-box,
-      linear-gradient(135deg, rgba(31, 112, 75, 0.2), rgba(21, 158, 107, 0.2)) border-box;
-  }
-
-  .border-gradient-accent {
-    border: 2px solid transparent;
-    background: 
-      linear-gradient(white, white) padding-box,
-      linear-gradient(135deg, #1f704b, #159e6b) border-box;
-  }
-
-  /* Corner accents */
-  .corner-accent::before {
+  .pill-badge::before {
     content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 24px;
-    height: 24px;
-    border-top: 2px solid rgba(21, 158, 107, 0.3);
-    border-left: 2px solid rgba(21, 158, 107, 0.3);
-    border-top-left-radius: 8px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #159e6b;
   }
 
-  .corner-accent::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 24px;
-    height: 24px;
-    border-bottom: 2px solid rgba(21, 158, 107, 0.3);
-    border-right: 2px solid rgba(21, 158, 107, 0.3);
-    border-bottom-right-radius: 8px;
+  /* Button system */
+  .btn-primary {
+    @apply bg-primary-dark hover:bg-primary text-white font-bold text-sm px-6 py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-200;
   }
 
-  /* Section dividers */
-  .section-divider-wave {
-    position: relative;
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-primary-dark font-bold text-sm px-6 py-3 rounded-full border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200;
   }
 
-  .section-divider-wave::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 60' preserveAspectRatio='none'%3E%3Cpath d='M0,30 Q300,0 600,30 T1200,30 L1200,60 L0,60 Z' fill='%23fafef9'/%3E%3C/svg%3E") no-repeat;
-    background-size: cover;
-  }
-
-  .section-divider-angle {
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3rem), 0 100%);
-  }
-
-  /* Premium glass effect */
-  .glass-effect {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-
-  .glass-effect-dark {
-    background: rgba(31, 112, 75, 0.15);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-}
-
-@keyframes ctaPulse {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(21, 158, 107, 0.45), 0 8px 24px rgba(27, 90, 66, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 0 14px rgba(21, 158, 107, 0), 0 14px 32px rgba(27, 90, 66, 0.35);
+  /* Clean card styling */
+  .card-clean {
+    @apply bg-white rounded-2xl p-6 shadow-sm border border-gray-100;
   }
 }

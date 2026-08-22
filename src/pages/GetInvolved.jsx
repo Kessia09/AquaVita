@@ -4,10 +4,8 @@ import { motion } from 'framer-motion'
 import PageTransition from '../components/PageTransition'
 import SectionHeader from '../components/SectionHeader'
 import RevealOnScroll from '../components/RevealOnScroll'
-import AmbientFloaters from '../components/AmbientFloaters'
 import TiltCard from '../components/TiltCard'
 import MagneticButton from '../components/MagneticButton'
-import RisingParticles from '../components/RisingParticles'
 
 const ways = [
   {
@@ -32,7 +30,7 @@ const ways = [
   },
 ]
 
-export default function GetInvolved({ onSelectTab }) {
+export default function GetInvolved() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
 
@@ -54,18 +52,15 @@ export default function GetInvolved({ onSelectTab }) {
   return (
     <PageTransition>
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary-dark via-footer to-primary-dark text-white pt-24 pb-20 px-5 border-b border-primary-mid/40">
-        <AmbientFloaters theme="dark" variant="contact" />
-        <RisingParticles count={14} />
-
-        <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <span className="inline-block font-body font-semibold text-xs uppercase tracking-widest text-accent-mid bg-white/10 border border-white/20 px-4 py-1.5 rounded-full mb-5 shadow-sm">
+      <section className="bg-primary-dark py-20 px-5">
+        <div className="max-w-3xl mx-auto text-center">
+          <span className="pill-badge !bg-white/10 !text-white mb-6">
             Get Involved
           </span>
-          <h1 className="font-heading font-extrabold text-4xl sm:text-5xl text-white leading-tight mb-5 tracking-tight">
+          <h1 className="heading-serif-bold text-4xl sm:text-5xl text-white mb-5">
             Join the mission
           </h1>
-          <p className="font-body text-base text-white/80 leading-relaxed max-w-xl mx-auto">
+          <p className="font-body text-lg text-white/80 leading-relaxed max-w-xl mx-auto">
             AquaVita is bigger than one school. Whether you want to donate, collaborate,
             replicate the system, or just say hello — we'd love to connect.
           </p>
@@ -73,30 +68,24 @@ export default function GetInvolved({ onSelectTab }) {
       </section>
 
       {/* ── Ways to help ─────────────────────────────────────── */}
-      <section className="bg-bg-soft py-20 px-5 relative">
+      <section className="bg-white grid-bg py-20 px-5">
         <div className="max-w-5xl mx-auto">
           <SectionHeader
             eyebrow="How You Can Help"
             title="Four ways to get involved"
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {ways.map(({ icon: Icon, title, body }, i) => (
-              <RevealOnScroll key={title} delay={i * 0.08} direction="up">
-                <TiltCard maxTilt={8}>
-                  <div className="bg-white rounded-3xl p-7 sm:p-8 border-t-4 border-t-accent border-x border-b border-border-light shadow-card h-full flex gap-5">
-                    <motion.div
-                      animate={{ scale: [1, 1.12, 1] }}
-                      transition={{ duration: 3, repeat: Infinity, delay: i * 0.25, ease: 'easeInOut' }}
-                      className="w-12 h-12 shrink-0 rounded-2xl bg-bg-card border border-border flex items-center justify-center text-accent"
-                    >
-                      <Icon size={22} />
-                    </motion.div>
-                    <div>
-                      <h3 className="font-heading font-bold text-lg text-primary-dark mb-2">{title}</h3>
-                      <p className="font-body text-sm text-primary-mid/85 leading-relaxed">{body}</p>
-                    </div>
+              <RevealOnScroll key={title} delay={i * 0.08}>
+                <div className="card-clean h-full flex gap-5">
+                  <div className="w-12 h-12 shrink-0 rounded-full bg-accent/10 flex items-center justify-center text-accent">
+                    <Icon size={24} />
                   </div>
-                </TiltCard>
+                  <div>
+                    <h3 className="heading-serif font-bold text-lg text-primary-dark mb-2">{title}</h3>
+                    <p className="font-body text-gray-600 leading-relaxed">{body}</p>
+                  </div>
+                </div>
               </RevealOnScroll>
             ))}
           </div>
@@ -104,7 +93,7 @@ export default function GetInvolved({ onSelectTab }) {
       </section>
 
       {/* ── Contact form + info ──────────────────────────────── */}
-      <section id="contact-form" className="bg-white py-20 px-5">
+      <section id="contact-form" className="bg-white grid-bg py-20 px-5 scroll-mt-20">
         <div className="max-w-5xl mx-auto">
           <SectionHeader
             eyebrow="Contact"
@@ -118,15 +107,15 @@ export default function GetInvolved({ onSelectTab }) {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="bg-bg-card rounded-3xl p-10 text-center border border-border shadow-card"
+                  className="card-clean text-center"
                 >
-                  <div className="w-14 h-14 rounded-full bg-white border border-border flex items-center justify-center mx-auto mb-4 shadow-sm">
-                    <CheckCircle size={24} className="text-accent" />
+                  <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4 text-accent">
+                    <CheckCircle size={24} />
                   </div>
-                  <h3 className="font-heading font-bold text-primary-dark text-xl mb-2">
+                  <h3 className="heading-serif font-bold text-primary-dark text-xl mb-2">
                     Message sent!
                   </h3>
-                  <p className="font-body text-sm text-primary-mid/85">
+                  <p className="font-body text-sm text-gray-600">
                     Your mail client should have opened. If not, email us directly at{' '}
                     <a
                       href="mailto:aquavita.teams@gmail.com"
@@ -140,7 +129,7 @@ export default function GetInvolved({ onSelectTab }) {
               ) : (
                 <form
                   onSubmit={handleSubmit}
-                  className="bg-bg-soft/70 backdrop-blur-sm rounded-3xl p-8 border border-border-light shadow-card space-y-5"
+                  className="card-clean space-y-5"
                   noValidate
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -155,7 +144,7 @@ export default function GetInvolved({ onSelectTab }) {
                         value={form.name}
                         onChange={handleChange}
                         placeholder="Your name"
-                        className="w-full rounded-xl border border-border bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-primary-mid/40 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all duration-200"
+                        className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all duration-200"
                       />
                     </label>
                     <label className="block">
@@ -169,7 +158,7 @@ export default function GetInvolved({ onSelectTab }) {
                         value={form.email}
                         onChange={handleChange}
                         placeholder="you@example.com"
-                        className="w-full rounded-xl border border-border bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-primary-mid/40 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all duration-200"
+                        className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all duration-200"
                       />
                     </label>
                   </div>
@@ -184,7 +173,7 @@ export default function GetInvolved({ onSelectTab }) {
                       value={form.subject}
                       onChange={handleChange}
                       placeholder="e.g. Collaboration enquiry"
-                      className="w-full rounded-xl border border-border bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-primary-mid/40 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all duration-200"
+                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all duration-200"
                     />
                   </label>
 
@@ -199,7 +188,7 @@ export default function GetInvolved({ onSelectTab }) {
                       value={form.message}
                       onChange={handleChange}
                       placeholder="Tell us who you are and how you'd like to get involved…"
-                      className="w-full rounded-xl border border-border bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-primary-mid/40 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all duration-200 resize-none"
+                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 font-body text-sm text-primary-dark placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent/40 focus:border-accent transition-all duration-200 resize-none"
                     />
                   </label>
 
@@ -207,7 +196,7 @@ export default function GetInvolved({ onSelectTab }) {
                     {() => (
                       <button
                         type="submit"
-                        className="inline-flex items-center gap-2 bg-primary hover:bg-primary-mid transition-all duration-200 text-white font-bold font-body px-8 py-3.5 rounded-full shadow-md hover:shadow-lg focus:outline-none"
+                        className="btn-primary inline-flex items-center gap-2"
                       >
                         Send Message <Send size={16} />
                       </button>
@@ -220,23 +209,23 @@ export default function GetInvolved({ onSelectTab }) {
             {/* Contact info */}
             <RevealOnScroll delay={0.15} className="md:col-span-2 space-y-5">
               <TiltCard maxTilt={6}>
-                <div className="bg-bg-soft/70 backdrop-blur-sm rounded-3xl p-7 border border-border-light shadow-card">
-                  <h3 className="font-heading font-bold text-primary-dark text-lg mb-5">Contact details</h3>
+                <div className="card-clean">
+                  <h3 className="heading-serif font-bold text-primary-dark text-lg mb-5">Contact details</h3>
                   <ul className="space-y-4">
                     <li className="flex items-start gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-bg-card border border-border flex items-center justify-center shrink-0 mt-0.5 text-accent">
+                      <div className="w-9 h-9 rounded-xl bg-accent/10 flex items-center justify-center shrink-0 mt-0.5 text-accent">
                         <MapPin size={16} />
                       </div>
                       <div>
                         <p className="font-body text-xs font-bold text-primary-dark uppercase tracking-wider">Location</p>
-                        <p className="font-body text-sm text-primary-mid/85 mt-0.5">
+                        <p className="font-body text-sm text-gray-600 mt-0.5">
                           Rwanda Coding Academy<br />
                           Musanze, Rwanda
                         </p>
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-bg-card border border-border flex items-center justify-center shrink-0 mt-0.5 text-accent">
+                      <div className="w-9 h-9 rounded-xl bg-accent/10 flex items-center justify-center shrink-0 mt-0.5 text-accent">
                         <Mail size={16} />
                       </div>
                       <div>
@@ -250,7 +239,7 @@ export default function GetInvolved({ onSelectTab }) {
                       </div>
                     </li>
                     <li className="flex items-start gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-bg-card border border-border flex items-center justify-center shrink-0 mt-0.5 text-accent">
+                      <div className="w-9 h-9 rounded-xl bg-accent/10 flex items-center justify-center shrink-0 mt-0.5 text-accent">
                         <Github size={16} />
                       </div>
                       <div>
@@ -269,9 +258,8 @@ export default function GetInvolved({ onSelectTab }) {
                 </div>
               </TiltCard>
 
-              <div className="relative overflow-hidden bg-gradient-to-br from-primary-dark to-primary rounded-3xl p-7 shadow-card">
-                <div className="absolute top-0 right-0 w-28 h-28 bg-accent/20 rounded-full blur-xl pointer-events-none" />
-                <h4 className="font-heading font-extrabold text-white text-lg mb-2">Replicate the system</h4>
+              <div className="card-clean bg-primary-dark text-white">
+                <h4 className="heading-serif font-bold text-white text-lg mb-2">Replicate the system</h4>
                 <p className="font-body text-sm text-white/80 leading-relaxed mb-5">
                   Want to build an AquaVita system at your school? We'll share our full
                   materials list, construction guide, and data templates for free.
@@ -279,7 +267,7 @@ export default function GetInvolved({ onSelectTab }) {
                 <motion.a
                   whileHover={{ x: 3 }}
                   href="mailto:aquavita.teams@gmail.com?subject=Replication%20kit%20request"
-                  className="inline-flex items-center gap-1.5 text-sm font-bold font-body text-white underline underline-offset-4 hover:text-accent-mid transition-colors"
+                  className="inline-flex items-center gap-1.5 text-sm font-bold font-body text-white underline underline-offset-4 hover:text-white/80 transition-colors"
                 >
                   Request the replication kit →
                 </motion.a>
@@ -291,6 +279,3 @@ export default function GetInvolved({ onSelectTab }) {
     </PageTransition>
   )
 }
-
-
-

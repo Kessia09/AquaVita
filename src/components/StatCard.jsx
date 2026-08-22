@@ -1,8 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import { useInView, motion } from 'framer-motion'
 import RevealOnScroll from './RevealOnScroll'
-import TiltCard from './TiltCard'
-import DecorativeCorner from './DecorativeCorner'
 
 function parseValueString(raw) {
   if (typeof raw !== 'string') return { prefix: '', number: null, suffix: '' }
@@ -50,41 +48,23 @@ export default function StatCard({ value, label, delay = 0 }) {
 
   return (
     <RevealOnScroll delay={delay}>
-      <TiltCard maxTilt={10}>
-        <motion.div
-          ref={ref}
-          whileHover={{ scale: 1.04, y: -4 }}
-          transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="group relative overflow-hidden bg-white/95 backdrop-blur-sm rounded-3xl px-5 py-6 text-center shadow-layered border-gradient hover:shadow-layered-lg transition-all duration-300 h-full flex flex-col justify-center"
+      <motion.div
+        ref={ref}
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
+        className="card-clean text-center h-full flex flex-col justify-center group"
+      >
+        <motion.p
+          animate={isInView ? { scale: [0.8, 1.1, 1] } : {}}
+          transition={{ duration: 0.5, delay: delay + 0.1, type: 'spring', bounce: 0.5 }}
+          className="heading-serif-bold text-3xl sm:text-4xl text-primary-dark mb-2"
         >
-          {/* Subtle grid pattern */}
-          <div className="absolute inset-0 grid-pattern-dots opacity-30" />
-          
-          {/* Decorative corners */}
-          <DecorativeCorner position="top-left" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <DecorativeCorner position="bottom-right" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          
-          {/* Glow effect */}
-          <div className="pointer-events-none absolute -right-6 -bottom-6 w-24 h-24 rounded-full bg-accent/10 blur-xl group-hover:bg-accent/20 transition-all duration-300" />
-          
-          {/* Content */}
-          <div className="relative z-10">
-            <motion.p
-              animate={isInView ? { scale: [0.8, 1.1, 1] } : {}}
-              transition={{ duration: 0.5, delay: delay + 0.1, type: 'spring', bounce: 0.5 }}
-              className="font-heading font-extrabold text-3xl sm:text-4xl gradient-text leading-none mb-2 tracking-tight"
-            >
-              {formattedDisplay}
-            </motion.p>
-            <p className="font-body text-xs sm:text-sm font-bold text-primary-mid/85 leading-snug">
-              {label}
-            </p>
-          </div>
-
-          {/* Hover gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-accent/0 via-accent/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        </motion.div>
-      </TiltCard>
+          {formattedDisplay}
+        </motion.p>
+        <p className="font-body text-sm font-medium text-gray-600 leading-tight">
+          {label}
+        </p>
+      </motion.div>
     </RevealOnScroll>
   )
 }

@@ -46,38 +46,34 @@ export default function Team() {
   return (
     <PageTransition>
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-bg-soft via-bg-light to-white pt-24 pb-20 px-5 grid-pattern-subtle">
-        <AmbientFloaters theme="light" variant="team" />
-
-        <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <span className="inline-block font-body font-semibold text-xs uppercase tracking-widest text-accent glass-effect px-4 py-1.5 rounded-full mb-5 shadow-sm">
+      <section className="bg-white grid-bg pt-20 pb-16 px-5">
+        <div className="max-w-3xl mx-auto text-center">
+          <span className="pill-badge mb-6">
             The Team
           </span>
-          <h1 className="font-heading font-extrabold text-4xl sm:text-5xl text-primary-dark leading-tight mb-5 tracking-tight">
+          <h1 className="heading-serif-bold text-4xl sm:text-5xl text-primary-dark mb-5">
             Students behind<br />
-            <span className="gradient-text">AquaVita</span>
+            AquaVita
           </h1>
-          <p className="font-body text-base text-primary-mid/85 leading-relaxed max-w-xl mx-auto">
+          <p className="font-body text-lg text-gray-600 leading-relaxed max-w-xl mx-auto">
             We're a group of 12+ students from Rwanda Coding Academy who believe technology and
             biology can solve real problems. Every person on this team built, tested, and
             maintains a part of the system.
           </p>
         </div>
-
-        <SectionDivider variant="curve" color="soft" />
       </section>
 
       {/* ── Core team ────────────────────────────────────────── */}
-      <section className="bg-bg-soft py-20 px-5 relative">
-        <div className="max-w-6xl mx-auto relative z-10">
+      <section className="bg-gray-50 grid-bg py-20 px-5">
+        <div className="max-w-6xl mx-auto">
           <SectionHeader
             eyebrow="Core Team"
             title="Meet the builders"
             subtitle="12+ students, each owning a different slice of the project."
           />
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
             {coreTeam.map(({ name, role, image }, i) => (
-              <RevealOnScroll key={name} delay={i * 0.04} direction="up">
+              <RevealOnScroll key={name} delay={i * 0.04}>
                 <TeamCard name={name} role={role} image={image} />
               </RevealOnScroll>
             ))}
@@ -86,32 +82,28 @@ export default function Team() {
       </section>
 
       {/* ── Advisors ─────────────────────────────────────────── */}
-      <section className="bg-white py-20 px-5">
+      <section className="bg-white grid-bg py-20 px-5">
         <div className="max-w-4xl mx-auto">
           <SectionHeader
             eyebrow="Advisors & Support"
             title="We didn't do it alone"
             subtitle="Grateful acknowledgment to the mentors and community members who guided us."
           />
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {advisors.map(({ name, role, note }, i) => (
-              <RevealOnScroll key={name} delay={i * 0.1} direction="up">
-                <motion.div
-                  whileHover={{ y: -6, boxShadow: '0 16px 40px rgba(27, 90, 66, 0.12)' }}
-                  transition={{ duration: 0.25 }}
-                  className="bg-bg-soft/80 backdrop-blur-sm rounded-3xl p-7 border-t-4 border-t-accent border-x border-b border-border-light shadow-card h-full"
-                >
-                  <div className="w-12 h-12 rounded-2xl bg-bg-card border border-border mb-4 flex items-center justify-center shadow-sm">
-                    <span className="font-heading font-extrabold text-accent text-base">
+              <RevealOnScroll key={name} delay={i * 0.1}>
+                <div className="card-clean h-full">
+                  <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-4">
+                    <span className="heading-serif font-bold text-accent text-sm">
                       {name.charAt(0)}
                     </span>
                   </div>
-                  <h3 className="font-heading font-bold text-primary-dark text-base mb-1">
+                  <h3 className="heading-serif font-bold text-primary-dark mb-1">
                     {name}
                   </h3>
-                  <p className="font-body text-xs text-accent font-semibold mb-3">{role}</p>
-                  <p className="font-body text-xs text-primary-mid/80 leading-relaxed">{note}</p>
-                </motion.div>
+                  <p className="font-body text-sm text-accent font-medium mb-3">{role}</p>
+                  <p className="font-body text-sm text-gray-600 leading-relaxed">{note}</p>
+                </div>
               </RevealOnScroll>
             ))}
           </div>
@@ -119,27 +111,21 @@ export default function Team() {
       </section>
 
       {/* ── Values ───────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary-dark via-footer to-primary-dark py-24 px-5">
-        <AmbientFloaters theme="dark" variant="values" />
-
-        <RevealOnScroll className="relative z-10 max-w-4xl mx-auto text-center" direction="up">
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white mb-6 tracking-tight">
+      <section className="bg-primary-dark py-20 px-5">
+        <RevealOnScroll className="max-w-4xl mx-auto text-center">
+          <h2 className="heading-serif-bold text-3xl sm:text-4xl text-white mb-8">
             Our guiding principles
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left mt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-left mt-10">
             {[
               { label: 'Learn by doing', body: 'Every design decision was made and tested by students, not just described in a textbook.' },
               { label: 'Local first', body: 'We use materials and knowledge available in Rwanda — no expensive imports, no dependency on foreign supply chains.' },
               { label: 'Open source', body: "Our designs, data, and findings are freely shared so any school can replicate or improve on what we've built." },
             ].map(({ label, body }) => (
-              <motion.div
-                key={label}
-                whileHover={{ y: -4, backgroundColor: 'rgba(255, 255, 255, 0.14)' }}
-                className="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/15 transition-all duration-200"
-              >
-                <h4 className="font-heading font-bold text-white text-lg mb-2">{label}</h4>
-                <p className="font-body text-sm text-white/80 leading-relaxed">{body}</p>
-              </motion.div>
+              <div key={label} className="bg-white/10 rounded-2xl p-6 border border-white/20">
+                <h4 className="heading-serif font-bold text-white text-lg mb-3">{label}</h4>
+                <p className="font-body text-white/80 leading-relaxed">{body}</p>
+              </div>
             ))}
           </div>
         </RevealOnScroll>

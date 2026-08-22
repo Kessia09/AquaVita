@@ -221,101 +221,63 @@ export default function Home({ onSelectTab }) {
       </section>
 
       {/* ── Stats ────────────────────────────────────────────── */}
-      <section className="relative bg-white py-20 px-5 grid-pattern-subtle">
-        {/* Section dividers */}
-        <SectionDivider variant="wave" color="light" flip={true} />
-        
-        <div className="max-w-4xl mx-auto relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+      <section className="bg-white grid-bg py-20 px-5">        
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((s) => (
               <StatCard key={s.label} {...s} />
             ))}
           </div>
         </div>
-
-        <SectionDivider variant="curve" color="soft" />
       </section>
 
       {/* ── How it works preview ─────────────────────────────── */}
-      <section className="relative bg-bg-soft py-20 sm:py-24 px-5 overflow-hidden grid-pattern-lines">
-        {/* Layered background elements */}
-        <div className="pointer-events-none absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-accent/3 blur-3xl" />
-        <div className="pointer-events-none absolute bottom-1/4 -right-32 w-80 h-80 rounded-full bg-primary/4 blur-3xl" />
-        
-        <div className="max-w-6xl mx-auto relative z-10">
+      <section className="bg-gray-50 grid-bg py-20 px-5">
+        <div className="max-w-6xl mx-auto">
           <SectionHeader
             eyebrow="The System"
             title="Simple science, real results"
             subtitle="Three pillars make AquaVita work — each one designed and built by students."
           />
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {highlights.map(({ icon: Icon, title, body }, i) => (
-              <RevealOnScroll key={title} delay={i * 0.1} direction="up">
-                <TiltCard maxTilt={8}>
-                  <div className="relative bg-white rounded-3xl p-7 sm:p-8 border-gradient shadow-layered hover:shadow-layered-lg transition-all duration-300 h-full flex flex-col justify-between group overflow-hidden">
-                    {/* Decorative corners */}
-                    <DecorativeCorner position="top-left" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    
-                    {/* Content */}
-                    <div className="relative z-10">
-                      <motion.div
-                        animate={{ scale: [1, 1.12, 1], rotate: [0, 5, 0] }}
-                        transition={{ duration: 4, repeat: Infinity, delay: i * 0.3, ease: 'easeInOut' }}
-                        className="w-12 h-12 rounded-2xl bg-bg-card border border-border flex items-center justify-center mb-6 text-accent shadow-sm"
-                      >
-                        <Icon size={22} />
-                      </motion.div>
-                      <h3 className="font-heading font-bold text-xl text-primary-dark mb-3">{title}</h3>
-                      <p className="font-body text-sm text-primary-mid/80 leading-relaxed">{body}</p>
-                    </div>
-
-                    {/* Hover gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-accent/0 via-accent/2 to-primary/3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <RevealOnScroll key={title} delay={i * 0.1}>
+                <div className="card-clean h-full">
+                  <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-6 text-accent">
+                    <Icon size={24} />
                   </div>
-                </TiltCard>
+                  <h3 className="heading-serif text-xl text-primary-dark mb-3">{title}</h3>
+                  <p className="font-body text-gray-600 leading-relaxed">{body}</p>
+                </div>
               </RevealOnScroll>
             ))}
           </div>
           <RevealOnScroll className="text-center mt-12" delay={0.3}>
             <button
               onClick={() => handleTabClick('how-it-works')}
-              className="inline-flex items-center gap-2 text-accent font-bold font-body text-sm hover:text-accent-mid group focus:outline-none glass-effect px-6 py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-200"
+              className="btn-primary"
             >
-              Full process breakdown{' '}
-              <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-1" />
+              Full process breakdown
             </button>
           </RevealOnScroll>
         </div>
-
-        {/* Section divider */}
-        <SectionDivider variant="tilt" color="white" />
       </section>
 
       {/* ── CTA ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary-dark via-primary to-footer py-24 px-5">
-        <AmbientFloaters theme="dark" variant="cta" />
-        <RisingParticles count={16} />
-
-        <RevealOnScroll className="relative z-10 max-w-2xl mx-auto text-center">
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white mb-4 tracking-tight">
+      <section className="bg-primary-dark py-20 px-5">
+        <RevealOnScroll className="max-w-2xl mx-auto text-center">
+          <h2 className="heading-serif-bold text-3xl sm:text-4xl text-white mb-4">
             Want to support AquaVita?
           </h2>
-          <p className="font-body text-base text-white/80 mb-9 leading-relaxed max-w-xl mx-auto">
+          <p className="font-body text-lg text-white/80 mb-8 leading-relaxed">
             Whether you're a mentor, donor, researcher, or just curious — we'd love to hear from you.
           </p>
-          <MagneticButton pulse strength={0.35}>
-            {({ onClick }) => (
-              <button
-                onClick={() => {
-                  if (onClick) onClick()
-                  handleTabClick('get-involved')
-                }}
-                className="inline-flex items-center gap-2.5 bg-white hover:bg-bg-light transition-all duration-200 text-primary-dark font-bold font-body px-9 py-4 rounded-full shadow-lg focus:outline-none"
-              >
-                Get Involved <ArrowRight size={18} className="text-accent" />
-              </button>
-            )}
-          </MagneticButton>
+          <button
+            onClick={() => handleTabClick('get-involved')}
+            className="bg-white hover:bg-gray-100 text-primary-dark font-bold text-sm px-8 py-4 rounded-full shadow-sm hover:shadow-md transition-all duration-200"
+          >
+            Get Involved
+          </button>
         </RevealOnScroll>
       </section>
     </PageTransition>
