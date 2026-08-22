@@ -57,7 +57,7 @@ export default function Navbar({ activeTab = 'home', onSelectTab }) {
                 <button
                   key={id}
                   onClick={() => handleTabClick(id)}
-                  className={`text-sm font-semibold font-body transition-colors duration-200 relative py-1.5 focus:outline-none ${
+                  className={`text-sm font-semibold heading-serif transition-colors duration-200 relative py-1.5 focus:outline-none ${
                     isActive ? 'text-accent font-bold' : 'text-primary-mid hover:text-accent'
                   }`}
                 >
@@ -75,7 +75,7 @@ export default function Navbar({ activeTab = 'home', onSelectTab }) {
             <motion.div whileHover={{ scale: 1.04, y: -1 }} whileTap={{ scale: 0.97 }}>
               <button
                 onClick={() => handleTabClick('get-involved', 'contact-form')}
-                className="ml-2 bg-primary hover:bg-primary-mid transition-all duration-200 text-white text-sm font-semibold font-body px-6 py-2.5 rounded-full shadow-sm hover:shadow-md focus:outline-none"
+                className="ml-2 bg-primary hover:bg-primary-mid transition-all duration-200 text-white text-sm font-semibold heading-serif px-6 py-2.5 rounded-full shadow-sm hover:shadow-md focus:outline-none"
               >
                 Contact Us
               </button>
@@ -112,7 +112,7 @@ export default function Navbar({ activeTab = 'home', onSelectTab }) {
                   <button
                     key={id}
                     onClick={() => handleTabClick(id)}
-                    className={`font-body font-semibold text-sm px-3.5 py-3 rounded-xl text-left transition-colors focus:outline-none ${
+                    className={`heading-serif font-semibold text-sm px-3.5 py-3 rounded-xl text-left transition-colors focus:outline-none ${
                       isActive
                         ? 'text-accent bg-bg-card font-bold'
                         : 'text-primary-mid hover:text-accent hover:bg-bg-light'
@@ -124,7 +124,7 @@ export default function Navbar({ activeTab = 'home', onSelectTab }) {
               })}
               <button
                 onClick={() => handleTabClick('get-involved', 'contact-form')}
-                className="mt-2 bg-primary hover:bg-primary-mid transition-colors duration-200 text-white text-sm font-semibold font-body px-5 py-3 rounded-full text-center shadow-sm focus:outline-none"
+                className="mt-2 bg-primary hover:bg-primary-mid transition-colors duration-200 text-white text-sm font-semibold heading-serif px-5 py-3 rounded-full text-center shadow-sm focus:outline-none"
               >
                 Contact Us
               </button>

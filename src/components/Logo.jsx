@@ -26,7 +26,7 @@ export default function Logo({ size = 'sm', light = false }) {
       {/* Wordmark */}
       <div>
         <span
-          className={`font-heading font-bold leading-none ${wordmarkClass} ${
+          className={`heading-serif-bold leading-none ${wordmarkClass} ${
             light ? 'gradient-text-light' : 'gradient-text'
           }`}
         >

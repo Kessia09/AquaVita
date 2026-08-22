@@ -56,7 +56,7 @@ export default function Footer({ onSelectTab }) {
 
           {/* Navigation Tabs */}
           <div>
-            <h4 className="font-heading font-bold text-footer-text text-xs uppercase tracking-widest mb-4 text-accent-mid">
+            <h4 className="heading-serif font-bold text-footer-text text-xs uppercase tracking-widest mb-4 text-accent-mid">
               Navigation
             </h4>
             <ul className="space-y-2.5">
@@ -75,7 +75,7 @@ export default function Footer({ onSelectTab }) {
 
           {/* Contact */}
           <div>
-            <h4 className="font-heading font-bold text-footer-text text-xs uppercase tracking-widest mb-4 text-accent-mid">
+            <h4 className="heading-serif font-bold text-footer-text text-xs uppercase tracking-widest mb-4 text-accent-mid">
               Contact
             </h4>
             <ul className="space-y-3">

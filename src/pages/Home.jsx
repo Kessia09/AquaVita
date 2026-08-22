@@ -117,7 +117,7 @@ export default function Home({ onSelectTab }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
           >
-            <h1 className="font-heading font-extrabold text-4xl sm:text-5xl lg:text-7xl text-white/85 leading-[1.1] tracking-tight flex flex-wrap justify-center gap-x-3 gap-y-2">
+            <h1 className="heading-serif-bold text-4xl sm:text-5xl lg:text-7xl text-white/85 leading-[1.1] tracking-tight flex flex-wrap justify-center gap-x-3 gap-y-2">
               {headlineWords1.map((word, index) => (
                 <motion.span
                   key={word + index}
